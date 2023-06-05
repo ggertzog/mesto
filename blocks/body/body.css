@@ -1,0 +1,7 @@
+.body {
+    max-width: 1280px;
+    background-color: #000000;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}

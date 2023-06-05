@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mesto</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="body">
+    <header class="header">
+        <img class="header__logo" src="./images/Vector.svg" alt="логотип">
+    </header>
+    <section class="profile">
+        <img class="profile__avatar" src="./images/image.jpg" alt="аватарка">
+        <div class="profile__info">
+            <div class="profile__user-container">
+                <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+                <button class="profile__edit-button"><img class="profile__edit-button_image" alt="ярлык" src="./images/button.svg"></button>
+            </div>
+            <p class="profile__user-description">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"><img class="profile__add-button_image" alt="ярлык" src="./images/button-plus.svg"></button>
+    </section>
+    <section class="elements">
+        <article class="elements__card">
+            <img class="elements__image" alt="Мыс" src="./images/chameleon.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Мыс Хамелеон</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+        <article class="elements__card">
+            <img class="elements__image" alt="Белая Скала" src="./images/belaya-skala.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Белая Скала</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+        <article class="elements__card">
+            <img class="elements__image" alt="Сиваш" src="./images/sivash.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Красное озеро - Сасык Сиваш</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+        <article class="elements__card">
+            <img class="elements__image" alt="Массандровский дворец" src="./images/massandrovskiy-dvorec.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Массандровский дворец</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+        <article class="elements__card">
+            <img class="elements__image" alt="Ласточкино Гнездо" src="./images/lastochkino-gnezdo.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Ласточкино Гнездо</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+        <article class="elements__card">
+            <img class="elements__image" alt="Партенит" src="./images/partenit-Krim.jpg">
+            <div class="elements__description">
+                <h2 class="elements__title">Партенит, Крым</h2>
+                <button class="elements__button"><img src="./images/like.svg" alt="нравится" class="elements__button_image"></button>
+            </div>
+        </article>
+    </section>
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+    </footer>
+    <section class="popup">
+        <div class="popup__container">
+            <h2 class="popup__text">Редактировать профиль</h2>
+            <input type="text" placeholder="Введите имя" class="popup__input-name">
+            <input type="text" placeholder="Расскажите о себе" class="popup__input-about">
+            <button class="popup__button-submit">Сохранить</button>
+            <button class="popup__button-close"><img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-close_image"></button>
+        </div>
+    </section>
+    <script src="./index.js"></script>
+</body>
+</html>
