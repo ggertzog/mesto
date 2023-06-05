@@ -16,4 +16,4 @@
 
 **GH-Page**
 
-*[Ссылка на gh-pages](https://ggertzog.github.io/mesto/index.html)
+* [Ссылка на gh-pages](https://ggertzog.github.io/mesto/index.html)
