@@ -8,11 +8,15 @@
     font-size: 18px;
     line-height: 22px;
     text-align: center;
+    margin-top: 25px;
     margin-left: 36px;
+    padding: 0;
     z-index: 1;
     border-radius: 2px;
     opacity: 100%;
     transition: .3s opacity linear 0s;
+    cursor: pointer;
+    border: none;
 }
 
 .popup__button-submit:hover {
@@ -22,6 +26,7 @@
 @media screen and (max-width: 724px) {
     .popup__button-submit {
         max-width: 238px;
+        height: 46px;
         margin-left: 22px;
         font-size: 14px;
         line-height: 17px;

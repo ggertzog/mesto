@@ -4,7 +4,7 @@
     margin-right: 0;
     margin-left: auto;
     padding: 0;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0);
     border: 2px solid #fff;
     border-radius: 2px;
     align-self: center;
@@ -12,6 +12,7 @@
     display: flex;
     opacity: 100%;
     transition: .3s opacity linear 0s;
+    cursor: pointer;
 }
 
 .profile__add-button:hover {

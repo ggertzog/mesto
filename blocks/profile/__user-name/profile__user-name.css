@@ -1,4 +1,5 @@
 .profile__user-name {
+    max-width: 294px;
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
     font-size: 42px;
@@ -7,10 +8,14 @@
     margin: 0;
     padding: 0;
     display: flex;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 724px) {
     .profile__user-name {
+        max-width: 189px;
         font-size: 27px;
         line-height: 33px;
         margin-bottom: 6px;
