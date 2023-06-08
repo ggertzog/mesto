@@ -13,13 +13,9 @@
     box-sizing: border-box;
 }
 
-.popup__input:last-of-type {
-    /* margin-bottom: 30px; */
-}
-
 @media screen and (max-width: 724px) {
     .popup__input {
         max-width: 238px;
-        margin: 0 22px 20px;
+        margin: 0 22px 30px;
     }
 }
