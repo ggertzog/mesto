@@ -1,4 +1,5 @@
 .elements__button {
+    border: none;
     margin: 0;
     padding: 0;
     width: 22px;
@@ -14,4 +15,15 @@
 
 .elements__button:hover {
     opacity: 50%;
+}
+
+.elements__button_active {
+    opacity: 100%;
+    background: url(../../../images/like-black.svg) no-repeat center;
+    width: 18px;
+    height: 19px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
 }

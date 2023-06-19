@@ -30,7 +30,10 @@
         <section class="elements">
             <template id="elements__template">
                 <div class="elements__card">
-                    <img class="elements__image" alt="" src="">
+                    <img class="elements__image" alt="Изображение" src="">
+                    <button class="elements__button-del" type="button">
+                        <img src="./images/musorka.svg" alt="урна" class="elements__button-del-image">
+                    </button>
                     <div class="elements__description">
                         <h2 class="elements__title"></h2>
                         <button class="elements__button" type="button">
@@ -50,12 +53,33 @@
                 <h2 class="popup__text">Редактировать профиль</h2>
                 <input name="popup__input-name" type="text" placeholder="Введите имя" class="popup__input popup__input_type_name" required>
                 <input name="popup__input-about" type="text" placeholder="Расскажите о себе" class="popup__input popup__input_type_about" required>
-                <button class="popup__button-submit" type="submit">Сохранить</button>
+                <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
                 <button class="popup__button-close" type="button">
                     <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
                 </button>
             </form>
         </div>
+    </div>
+    <div class="popup popup-create" >
+        <div class="popup__container">
+            <form class="popup__form-create" name="popup__form-create">
+                <h2 class="popup__text">Новое место</h2>
+                <input name="popup__input-title" type="text" placeholder="Название" class="popup__input popup__input_type_title" required>
+                <input name="popup__input-link" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
+                <button class="popup__button popup__button_type_create" type="submit">Создать</button>
+                <button class="popup__button-exit" type="button">
+                    <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup-image">
+        <!-- если не получится первая задумка попробуй реализовать через template -->
+        <img src="" alt="Картинка" class="popup__image">
+        <p class="popup__subtitle"></p>
+        <button class="popup__button-close" type="button">
+            <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
+        </button>
     </div>
     <script src="./scripts/index.js"></script>
 </body>
