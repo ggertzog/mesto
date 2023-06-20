@@ -7,7 +7,7 @@
     <title>mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body class="body">
+<body class="body root">
     <header class="header">
         <img class="header__logo" src="./images/Vector.svg" alt="логотип">
     </header>
@@ -30,7 +30,7 @@
         <section class="elements">
             <template id="elements__template">
                 <div class="elements__card">
-                    <img class="elements__image" alt="Изображение" src="">
+                    <img class="elements__image" alt="Изображение" src="#">
                     <button class="elements__button-del" type="button">
                         <img src="./images/musorka.svg" alt="урна" class="elements__button-del-image">
                     </button>
@@ -74,12 +74,15 @@
         </div>
     </div>
     <div class="popup popup-image">
-        <!-- если не получится первая задумка попробуй реализовать через template -->
-        <img src="" alt="Картинка" class="popup__image">
-        <p class="popup__subtitle"></p>
-        <button class="popup__button-close" type="button">
-            <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
-        </button>
+        <figure class="popup-image__figure">
+            <div class="popup-image__container">
+                <img src="" alt="Картинка" class="popup-image__element">
+                <button class="popup-image__button-close" type="button">
+                    <img src="./images/Close-Icon.svg" alt="закрыть" class="popup-image__button-element">
+                </button>
+            </div>
+            <figcaption class="popup-image__subtitle"></figcaption>
+        </figure>  
     </div>
     <script src="./scripts/index.js"></script>
 </body>

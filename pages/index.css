@@ -51,3 +51,11 @@
 
 @import url(../blocks/popup-create/popup-create.css);
 @import url(../blocks/popup-create/__form-create/popup__form-create.css);
+
+@import url(../blocks/popup-image/popup-image.css);
+@import url(../blocks/popup-image/__figure/popup-image__figure.css);
+@import url(../blocks/popup-image/__container/popup-image__container.css);
+@import url(../blocks/popup-image/__element/popup-image__element.css);
+@import url(../blocks/popup-image/__subtitle/popup-image__subtitle.css);
+@import url(../blocks/popup-image/__button-close/popup-image__button-close.css);
+@import url(../blocks/popup-image/__button-element/popup-image__button-element.css);
