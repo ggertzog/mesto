@@ -1,13 +1,13 @@
 .popup__button-close {
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    position: relative;
-    top: -332px;
-    right: -432px;
+    position: absolute;
     z-index: 1;
     opacity: 100%;
     transition: .3s opacity linear 0s;
     cursor: pointer;
+    top: -45px;
+    right: -45px;
 }
 
 .popup__button-close:hover {
@@ -18,7 +18,7 @@
     .popup__button-close {
         width: 20px;
         height: 20px;
-        top: -335px;
-        right: -255px;
+        top: -38px;
+        right: 8px;
     }
 }

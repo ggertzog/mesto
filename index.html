@@ -47,7 +47,7 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup-profile">
         <div class="popup__container">
             <form class="popup__form" name="popup__form">
                 <h2 class="popup__text">Редактировать профиль</h2>
@@ -62,12 +62,12 @@
     </div>
     <div class="popup popup-create" >
         <div class="popup__container">
-            <form class="popup__form-create" name="popup__form-create">
+            <form class="popup__form" name="popup__form-create">
                 <h2 class="popup__text">Новое место</h2>
                 <input name="popup__input-title" type="text" placeholder="Название" class="popup__input popup__input_type_title" required>
                 <input name="popup__input-link" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
                 <button class="popup__button popup__button_type_create" type="submit">Создать</button>
-                <button class="popup__button-exit" type="button">
+                <button class="popup__button-close" type="button">
                     <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
                 </button>
             </form>
@@ -77,8 +77,8 @@
         <figure class="popup-image__figure">
             <div class="popup-image__container">
                 <img src="#" alt="Картинка" class="popup-image__element">
-                <button class="popup-image__button-close" type="button">
-                    <img src="./images/Close-Icon.svg" alt="закрыть" class="popup-image__button-element">
+                <button class="popup__button-close" type="button">
+                    <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
                 </button>
             </div>
             <figcaption class="popup-image__subtitle"></figcaption>

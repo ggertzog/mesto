@@ -9,8 +9,9 @@
     line-height: 22px;
     text-align: center;
     margin: 0;
-    margin-top: 15px;
+    margin-top: 25px;
     margin-left: 36px;
+    margin-bottom: 37px;
     padding: 0;
     z-index: 1;
     border-radius: 2px;
@@ -31,5 +32,7 @@
         margin-left: 22px;
         font-size: 14px;
         line-height: 17px;
+        margin-top: 15px;
+        margin-bottom: 25px;
     }
 }

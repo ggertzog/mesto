@@ -1,20 +1,19 @@
 //Переменные первого попапа
-let popup = document.querySelector('.popup');
-let popupForm = document.querySelector('.popup__form');
-let popupButtonOpen = document.querySelector('.profile__edit-button');
-let popupButtonClose = document.querySelector('.popup__button-close');
-let nameInput = document.querySelector('.popup__input_type_name');
-let jobInput = document.querySelector('.popup__input_type_about');
-let userName = document.querySelector('.profile__user-name');
-let userAbout = document.querySelector('.profile__user-description');
+const popupProfile = document.querySelector('.popup-profile');
+const popupForm = document.querySelector('.popup__form');
+const popupButtonOpen = document.querySelector('.profile__edit-button');
+const popupCloseButtons = document.querySelectorAll('.popup__button-close');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_about');
+const userName = document.querySelector('.profile__user-name');
+const userAbout = document.querySelector('.profile__user-description');
 
 //Переменные второго поп-апа
-let popupCreate = document.querySelector('.popup-create');
-let popupCreateButtonClose = document.querySelector('.popup__button-exit');
-let popupCreateButton = document.querySelector('.profile__add-button');
-let titleInput = document.querySelector('.popup__input_type_title');
-let linkInput = document.querySelector('.popup__input_type_link');
-let popupFormCreate = document.querySelector('.popup__form-create');
+const popupCreate = document.querySelector('.popup-create');
+const popupCreateButtonClose = document.querySelector('.popup__button-exit');
+const popupCreateButton = document.querySelector('.profile__add-button');
+const titleInput = document.querySelector('.popup__input_type_title');
+const linkInput = document.querySelector('.popup__input_type_link');
 
 //Переменные и массив для секции elements
 //здесь создал переменную относящуюся к секции
@@ -22,7 +21,7 @@ const elementsSection = document.querySelector('.elements');
 //обратился к шаблону темплейт
 const elementTemplate = document.querySelector('#elements__template').content.querySelector('.elements__card');
 //обьявил переменную формы
-const elementForm = document.querySelector('.popup__form-create');
+const popupFormCreate = popupCreate.querySelector('.popup__form');
 //обьявил массив
 const initialCards = [
     {
@@ -58,40 +57,39 @@ const popupSubtitle = document.querySelector('.popup-image__subtitle');
 const elementsImage = document.querySelector('.elements__image');
 const elementSubtitle = document.querySelector('.elements__title');
 
-//функция открытия поп-апа профиля, присваиваем инпутам текстовые значения
-function openPopupForm () {
-    popup.classList.add('popup_opened');
-    nameInput.value = userName.textContent
-    jobInput.value = userAbout.textContent
+//универсальная функция для открытия поп-апов
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
-//функция закрытия поп-апа профиля
-function closePopupForm () {
+
+// универсальная функция закрытия поп-апов
+function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
+
+popupCloseButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
+
 //функция отправки формы и присвоения текстовых значений поп-апа профиля
 function savePopupForm (evt) {
   evt.preventDefault();
   userName.textContent = nameInput.value
   userAbout.textContent = jobInput.value
-  closePopupForm();
+  const popup = evt.target.closest('.popup');
+  closePopup(popup);
 }
-//функция открытия поп-апа добавления
-function openPopupCreate () {
-  popupCreate.classList.add('popup_opened');
-}
-//функция закрытия поп-апа добавления
-function closePopupCreate () {
-  popupCreate.classList.remove('popup_opened');
-}
+
 //Функция обработчик добавления новой карточки
-elementForm.addEventListener('submit', function (evt){
+popupFormCreate.addEventListener('submit', function (evt){
   evt.preventDefault();
   renderCard(titleInput.value, linkInput.value, elementsSection, 'prepend');
-  closePopupCreate();
-
-  titleInput.value = '';
-  linkInput.value = '';
+  const popup = evt.target.closest('.popup');
+  closePopup(popup);
+  evt.target.reset ();
 })
+
 //Функция для обработки шаблона template
 function createCard(name, link) {
   const elementCard = elementTemplate.cloneNode(true);
@@ -99,6 +97,7 @@ function createCard(name, link) {
   const elementLink = elementCard.querySelector('.elements__image');
   elementTitle.textContent = name;
   elementLink.setAttribute('src', link);
+  elementLink.setAttribute('alt', name);
   //Функция лайка
   elementCard.querySelector('.elements__button').addEventListener('click', function(evt) {
     evt.target.classList.toggle('elements__button_active');
@@ -109,6 +108,7 @@ function createCard(name, link) {
   })
   return elementCard;
 } 
+
 //Функция для отдельного рендеринга карточек
 function renderCard(name, link, pattern, position = 'append') {
   switch (position) {
@@ -122,63 +122,40 @@ function renderCard(name, link, pattern, position = 'append') {
       break;
   }
 }
+
 //метод forEach для массива
 initialCards.forEach(function (el) {
   renderCard(el.name, el.link, elementsSection);
 });
-//Функция открытия третьего поп-апа
-function popupImageOpen () {
-  popupImage.classList.add('popup_opened');
-}
-//функция закрытия третьего поп-апа
-popupImage.querySelector('.popup-image__button-close').addEventListener('click', function() {
-  popupImage.classList.remove('popup_opened');
-})
+
 //Функция обработки и присваивания значений карточек значениям поп-апа
 function renderPopupImage(name, link) {
   popupSubtitle.textContent = name;
   popupElementImage.setAttribute('src', link);
+  popupElementImage.setAttribute('alt', name);
 }
-//Слушатель события при нажатии на картинку и присвоения значения картинки и подписи
+
+//Слушатель тертьего поп-апа и события при нажатии на картинку и присвоения значения картинки и подписи
 elementsSection.addEventListener('click', function(evt){
   if(evt.target.classList.contains('elements__image')){
   const cardName = evt.target.closest('.elements__card').querySelector('.elements__title').textContent;
   const cardLink = evt.target.getAttribute('src');
   renderPopupImage(cardName, cardLink);
-  popupImageOpen();
+  openPopup(popupImage);
   }
 });
 
-//слушатель для открытия поп-апа профиля
-popupButtonOpen.addEventListener('click', openPopupForm);
-//слушатель закрытия поп-апа профиля
-popupButtonClose.addEventListener('click', closePopupForm);
+//слушатель поп-апа профиля
+popupButtonOpen.addEventListener('click', function(){
+  openPopup(popupProfile);
+  nameInput.value = userName.textContent;
+  jobInput.value = userAbout.textContent;
+});
+
+//слушатель поп-апа добавления
+popupCreateButton.addEventListener('click', function() {
+  openPopup(popupCreate);
+});
+
 //слушатель отправки формы на сервер поп-апа профиля
 popupForm.addEventListener('submit', savePopupForm);
-//слушатель закрытия поп-апа добавления
-popupCreateButtonClose.addEventListener('click', closePopupCreate);
-//слушать открытия поп-апа добавления
-popupCreateButton.addEventListener('click', openPopupCreate);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-
-
