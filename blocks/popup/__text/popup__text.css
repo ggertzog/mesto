@@ -6,7 +6,7 @@
     margin: 0;
     padding: 0;
     margin-left: 36px;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
     z-index: 1;
 }
 
@@ -14,6 +14,6 @@
     .popup__text {
         font-size: 18px;
         line-height: 22px;
-        margin: 0 22px 75px;
+        margin: 0 22px 70px;
     }
 }

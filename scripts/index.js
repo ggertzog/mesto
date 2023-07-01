@@ -7,6 +7,8 @@ const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_about');
 const userName = document.querySelector('.profile__user-name');
 const userAbout = document.querySelector('.profile__user-description');
+// находим все поп-апы для закрытия по оверлею
+const popups = document.querySelectorAll('.popup');
 
 //Переменные второго поп-апа
 const popupCreate = document.querySelector('.popup-create');
@@ -66,6 +68,15 @@ function openPopup(popup) {
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
 }
+
+// функция закрытия по оверлею, проходим по всем поп-апам методом forEach если те содержат popup используем функцию закрытия
+popups.forEach(function (popup) {
+  popup.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
+  });
+});
 
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
@@ -159,3 +170,14 @@ popupCreateButton.addEventListener('click', function() {
 
 //слушатель отправки формы на сервер поп-апа профиля
 popupForm.addEventListener('submit', savePopupForm);
+
+// слушатель закрытия попапа при нажатии esc
+document.addEventListener("keydown", function (evt) { 
+  if (evt.key === "Escape") { 
+     popups.forEach(function(element){  
+       if (element.classList.contains("popup_opened")){   
+         element.classList.remove("popup_opened");    
+       }     
+     });      
+}       
+});

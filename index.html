@@ -49,10 +49,12 @@
     </footer>
     <div class="popup popup-profile">
         <div class="popup__container">
-            <form class="popup__form" name="popup__form">
+            <form class="popup__form" name="popup__form" novalidate>
                 <h2 class="popup__text">Редактировать профиль</h2>
-                <input name="popup__input-name" type="text" placeholder="Введите имя" class="popup__input popup__input_type_name" required>
-                <input name="popup__input-about" type="text" placeholder="Расскажите о себе" class="popup__input popup__input_type_about" required>
+                <input name="input-name" type="text" placeholder="Введите имя" class="popup__input popup__input_type_name" required minlength="2" maxlength="40">
+                <span id="input-name-error" class="popup__span-error"></span>
+                <input name="input-about" type="text" placeholder="Расскажите о себе" class="popup__input popup__input_type_about" required minlength="2" maxlength="200">
+                <span id="input-about-error" class="popup__span-error"></span>
                 <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
                 <button class="popup__button-close" type="button">
                     <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
@@ -62,10 +64,12 @@
     </div>
     <div class="popup popup-create" >
         <div class="popup__container">
-            <form class="popup__form" name="popup__form-create">
+            <form class="popup__form" name="popup__form-create" novalidate>
                 <h2 class="popup__text">Новое место</h2>
-                <input name="popup__input-title" type="text" placeholder="Название" class="popup__input popup__input_type_title" required>
-                <input name="popup__input-link" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
+                <input name="input-title" type="text" placeholder="Название" class="popup__input popup__input_type_title" required minlength="2" maxlength="30">
+                <span id="input-title-error" class="popup__span-error"></span>
+                <input name="input-link" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
+                <span id="input-link-error" class="popup__span-error"></span>
                 <button class="popup__button popup__button_type_create" type="submit">Создать</button>
                 <button class="popup__button-close" type="button">
                     <img src="./images/Close-Icon.svg" alt="закрыть" class="popup__button-image">
@@ -84,6 +88,7 @@
             <figcaption class="popup-image__subtitle"></figcaption>
         </figure>  
     </div>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
