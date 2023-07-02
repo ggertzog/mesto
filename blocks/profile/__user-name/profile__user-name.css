@@ -7,7 +7,6 @@
     color: #fff;
     margin: 0;
     padding: 0;
-    display: flex;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

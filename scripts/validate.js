@@ -3,32 +3,36 @@ function showError (inputElement, errorElement, options) {
     inputElement.classList.add(options.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
 }
+
 //функция удаления ошибки
 function hideError (inputElement, errorElement, options) {
     inputElement.classList.remove(options.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
 }
+
 // функция переключения стилей инпутя в зависимости от валидости
 function checkInputValidity(inputElement, formElement, options) {
     const isInputValid = inputElement.validity.valid;
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
-    console.log(inputElement.validity);
     if(!isInputValid) {
         showError (inputElement, errorElement, options);
     } else {
         hideError (inputElement, errorElement, options);
     }
 }
+
 //функция блокировки кнопки
 function disabledButton (buttonElement, options) {
     buttonElement.disabled = 'disabled';
     buttonElement.classList.add(options.inactiveButtonClass);
 }
+
 //функция разблокировки кнопки 
 function enableButton (buttonElement, options) {
     buttonElement.disabled = false;
     buttonElement.classList.remove(options.inactiveButtonClass);
 }
+
 // функция переключения состояния кнопки
 function toggleButtonState(buttonElement, isActive, options) {
     if (!isActive) {
@@ -46,9 +50,8 @@ function setEventListener (formElement, options) {
 
     toggleButtonState(submitButtonElement, formElement.checkValidity(), options);
 
-    [...inputList].forEach(function (inputElement) {
+    inputList.forEach(function (inputElement) {
         inputElement.addEventListener('input', function() {
-            console.log(inputElement.validity);
             toggleButtonState(submitButtonElement, formElement.checkValidity(), options);
             checkInputValidity(inputElement, formElement, options);
         });
@@ -56,14 +59,14 @@ function setEventListener (formElement, options) {
     formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
         if (!formElement.checkValidity()) return;
-        console.log('Форма отправлена');
     });
 }
+
 // функция валидации, итоговая функция включающая в себя все остальные
 function enableValidation(options) {
     const formList = document.querySelectorAll(options.formSelector);
 
-    [...formList].forEach(function (formElement) {
+    formList.forEach(function (formElement) {
         setEventListener(formElement, options);
     });
 }

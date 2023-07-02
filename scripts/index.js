@@ -12,7 +12,6 @@ const popups = document.querySelectorAll('.popup');
 
 //Переменные второго поп-апа
 const popupCreate = document.querySelector('.popup-create');
-const popupCreateButtonClose = document.querySelector('.popup__button-exit');
 const popupCreateButton = document.querySelector('.profile__add-button');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
@@ -56,17 +55,31 @@ const initialCards = [
 const popupImage = document.querySelector('.popup-image');
 const popupElementImage = document.querySelector('.popup-image__element');
 const popupSubtitle = document.querySelector('.popup-image__subtitle');
-const elementsImage = document.querySelector('.elements__image');
-const elementSubtitle = document.querySelector('.elements__title');
 
 //универсальная функция для открытия поп-апов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
+}
+
+//функция инициации события для перепроверки содержания полей при открытии поп-апа
+function dispatchInput () {
+  let event = new Event('input');
+  nameInput.dispatchEvent(event);
 }
 
 // универсальная функция закрытия поп-апов
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
+}
+
+//функция закрытия поп-апа при нажатии Escape
+function closeByEsc (evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
 // функция закрытия по оверлею, проходим по всем поп-апам методом forEach если те содержат popup используем функцию закрытия
@@ -83,6 +96,20 @@ popupCloseButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
+// функция которая делает кнопку неактивной если поля пустые
+function disabledButton() {
+  const inputList = document.querySelectorAll('.popup__input');
+  inputList.forEach(function(input) {
+    if (input.value === '') {
+      const buttonsSubmit = document.querySelectorAll('.popup__button');
+      buttonsSubmit.forEach(function(button) {
+        button.classList.add('popup__button_type_invalid');
+        button.disabled = 'disabled';
+      });
+    }
+  });
+}
+
 //функция отправки формы и присвоения текстовых значений поп-апа профиля
 function savePopupForm (evt) {
   evt.preventDefault();
@@ -94,9 +121,9 @@ function savePopupForm (evt) {
 
 //Функция обработчик добавления новой карточки
 popupFormCreate.addEventListener('submit', function (evt){
+  const popup = evt.target.closest('.popup');
   evt.preventDefault();
   renderCard(titleInput.value, linkInput.value, elementsSection, 'prepend');
-  const popup = evt.target.closest('.popup');
   closePopup(popup);
   evt.target.reset ();
 })
@@ -161,23 +188,15 @@ popupButtonOpen.addEventListener('click', function(){
   openPopup(popupProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userAbout.textContent;
+  dispatchInput();
 });
 
 //слушатель поп-апа добавления
 popupCreateButton.addEventListener('click', function() {
   openPopup(popupCreate);
+  dispatchInput ();
+  disabledButton ();
 });
 
 //слушатель отправки формы на сервер поп-апа профиля
 popupForm.addEventListener('submit', savePopupForm);
-
-// слушатель закрытия попапа при нажатии esc
-document.addEventListener("keydown", function (evt) { 
-  if (evt.key === "Escape") { 
-     popups.forEach(function(element){  
-       if (element.classList.contains("popup_opened")){   
-         element.classList.remove("popup_opened");    
-       }     
-     });      
-}       
-});
