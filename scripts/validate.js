@@ -42,6 +42,13 @@ function enableButton(buttonElement, options) {
     buttonElement.disabled = false;
 }
 
+//функция проверки инпутов на валидность
+function hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    });
+}
+
 // функция переключения состояния кнопки
 function toggleButtonState(inputList, buttonElement, options) {
     if (hasInvalidInput(inputList)) {
@@ -50,14 +57,6 @@ function toggleButtonState(inputList, buttonElement, options) {
         enableButton(buttonElement, options);
     }
 }
-
-//функция проверки инпутов на валидность
-function hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
-    });
-}
-
 
 // функция для присваивания обработчиков событий
 function setEventListeners(formElement, options) {
@@ -79,12 +78,8 @@ function setEventListeners(formElement, options) {
 
 //общая функция валидации 
 function enableValidation(options) {
-    const formList = Array.from(document.querySelectorAll(options.formSelector));
+    const formList = document.querySelectorAll(options.formSelector);
     formList.forEach((formElement) => {
-      formElement.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-
       setEventListeners(formElement, options);
     });
 }
