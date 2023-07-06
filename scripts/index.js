@@ -157,7 +157,7 @@ function renderPopupImage(name, link) {
 
 //Слушатель тертьего поп-апа и события при нажатии на картинку и присвоения значения картинки и подписи
 elementsSection.addEventListener('click', function(evt){
-  if(evt.target.classList.contains('.elements__image')){
+  if(evt.target.classList.contains('elements__image')){
   const cardName = evt.target.closest('.elements__card').querySelector('.elements__title').textContent;
   const cardLink = evt.target.getAttribute('src');
   renderPopupImage(cardName, cardLink);
@@ -167,10 +167,10 @@ elementsSection.addEventListener('click', function(evt){
 
 //слушатель поп-апа профиля
 popupButtonOpen.addEventListener('click', function(){
+  resetValid(popupForm, options);
   openPopup(popupProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userAbout.textContent;
-  resetValid(popupForm, options);
 });
 
 //слушатель поп-апа добавления
