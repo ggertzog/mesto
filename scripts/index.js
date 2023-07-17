@@ -1,8 +1,19 @@
+//импорт js файлов
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+//добавил обьект для работы валидации
+const options = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_type_invalid',
+  inputErrorClass: 'popup__input_type_error',
+}
 //Переменные первого попапа
 const popupCard = document.querySelector('.popup-create');
 const popupFormCard = popupCard.querySelector('.popup__form');
 const popupProfile = document.querySelector('.popup-profile');
-const popupForm = document.querySelector('.popup__form');
+const popupFormProfile = popupProfile.querySelector('.popup__form');
 const popupButtonOpen = document.querySelector('.profile__edit-button');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 const nameInput = document.querySelector('.popup__input_type_name');
@@ -22,7 +33,6 @@ const linkInput = document.querySelector('.popup__input_type_link');
 //здесь создал переменную относящуюся к секции
 const elementsSection = document.querySelector('.elements');
 //обратился к шаблону темплейт
-const elementTemplate = document.querySelector('#elements__template').content.querySelector('.elements__card');
 //обьявил переменную формы
 const popupFormCreate = popupCreate.querySelector('.popup__form');
 //обьявил массив
@@ -58,6 +68,10 @@ const popupImage = document.querySelector('.popup-image');
 const popupElementImage = document.querySelector('.popup-image__element');
 const popupSubtitle = document.querySelector('.popup-image__subtitle');
 
+//Создал экземпляры класса FormValidator для каждой формы
+const cardValidator = new FormValidator(popupFormCard, options);
+const profileValidator = new FormValidator(popupFormProfile, options);
+
 //универсальная функция для открытия поп-апов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -87,6 +101,7 @@ popups.forEach(function (popup) {
   });
 });
 
+//метод forEach для того чтобы повесить слушатель закрытия при нажатии на все поп-апы
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
@@ -108,35 +123,31 @@ popupFormCreate.addEventListener('submit', function (evt){
   renderCard(titleInput.value, linkInput.value, elementsSection, 'prepend');
   closePopup(popup);
   evt.target.reset ();
-})
+});
 
-//Функция для обработки шаблона template
-function createCard(name, link) {
-  const elementCard = elementTemplate.cloneNode(true);
-  const elementTitle = elementCard.querySelector('.elements__title');
-  const elementLink = elementCard.querySelector('.elements__image');
-  elementTitle.textContent = name;
-  elementLink.setAttribute('src', link);
-  elementLink.setAttribute('alt', name);
-  //Функция лайка
-  elementCard.querySelector('.elements__button').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('elements__button_active');
-  });
-  //Функция удаления карточки
-  elementCard.querySelector('.elements__button-del').addEventListener('click', function(){
-    elementCard.remove();
-  })
-  return elementCard;
-} 
+// функция удаления карточки
+function handleClickDelete(elementCard) {
+  elementCard.remove();
+}
+
+//функция лайка карточки
+function handleClickLike(evt) {
+  evt.target.classList.toggle('elements__button_active');
+}
 
 //Функция для отдельного рендеринга карточек
 function renderCard(name, link, pattern, position = 'append') {
+  //создал экземпляр класса card
+  const cardElement = new Card(
+    { name, link, handleClickDelete, handleClickLike },
+    '#elements__template'
+    ).createCard();
   switch (position) {
     case "append":
-      pattern.append(createCard(name, link));
+      pattern.append(cardElement);
       break;
     case "prepend":
-      pattern.prepend(createCard(name, link));
+      pattern.prepend(cardElement);
       break;
     default:
       break;
@@ -166,20 +177,22 @@ elementsSection.addEventListener('click', function(evt){
 });
 
 //слушатель поп-апа профиля
-popupButtonOpen.addEventListener('click', function(){
-  resetValid(popupForm, options);
+popupButtonOpen.addEventListener('click', () => {
   openPopup(popupProfile);
   nameInput.value = userName.textContent;
   jobInput.value = userAbout.textContent;
 });
 
 //слушатель поп-апа добавления
-popupCreateButton.addEventListener('click', function() {
+popupCreateButton.addEventListener('click', () => {
   popupFormCard.reset();
-  resetValid(popupFormCard, options);
+  cardValidator.resetValid();
   openPopup(popupCreate);
 });
 
 
 //слушатель отправки формы на сервер поп-апа профиля
-popupForm.addEventListener('submit', savePopupForm);
+popupFormProfile.addEventListener('submit', savePopupForm);
+//вызвал фалидацию форм
+profileValidator.enableValidation();
+cardValidator.enableValidation();
