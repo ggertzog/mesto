@@ -6,6 +6,10 @@ export class Card {
     #templateSelector;
     #handleClickDelete;
     #handleClickLike;
+    #handleClickImage;
+    #buttonCardDelete;
+    #buttonCardLike;
+    #cardImage;
 //задал приватный метод получения шаблона
     #getTemplate() {
         return document
@@ -14,7 +18,7 @@ export class Card {
         .cloneNode(true);
     }
     constructor(
-    { name, link, handleClickDelete, handleClickLike },
+    { name, link, handleClickDelete, handleClickLike, handleClickImage },
         templateSelector
     ) {
         this.#name = name;
@@ -22,24 +26,29 @@ export class Card {
         this.#templateSelector = templateSelector;
         this.#handleClickDelete = handleClickDelete;
         this.#handleClickLike = handleClickLike;
+        this.#handleClickImage = handleClickImage;
     }
+    
     //матод создания карточки
     createCard() {
         this.#elementCard = this.#getTemplate();
         const elementTitle = this.#elementCard.querySelector('.elements__title');
         const elementLink = this.#elementCard.querySelector('.elements__image');
-        const buttonCardDelete = this.#elementCard.querySelector('.elements__button-del');
-        const buttonCardLike = this.#elementCard.querySelector('.elements__button');
+        this.#buttonCardDelete = this.#elementCard.querySelector('.elements__button-del');
+        this.#buttonCardLike = this.#elementCard.querySelector('.elements__button');
+        this.#cardImage = this.#elementCard.querySelector('.elements__image');
         elementTitle.textContent = this.#name;
         elementLink.setAttribute('src', this.#link);
         elementLink.setAttribute('alt', this.#name);
-        //добавил метод лайка
-        buttonCardLike.addEventListener('click', this.#handleClickLike);
-        //добавил метод удаления карточки
-        buttonCardDelete.addEventListener('click', () => {
-            this.#handleClickDelete(this.#elementCard);
-        });
+        this.#setEventListeners();
         //получаем готовую карточку на выходе
         return this.#elementCard;
-      } 
+      }
+      #setEventListeners() {
+        this.#buttonCardLike.addEventListener('click', this.#handleClickLike);
+        this.#buttonCardDelete.addEventListener('click', () => {
+            this.#handleClickDelete(this.#elementCard);
+        });
+        this.#cardImage.addEventListener('click', this.#handleClickImage);
+    }
 }

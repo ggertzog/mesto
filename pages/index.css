@@ -49,6 +49,7 @@
 @import url(../blocks/popup/__button-close/popup__button-close.css);
 @import url(../blocks/popup/__button-image/popup__button-image.css);
 @import url(../blocks/popup/__span-error/popup__span-error.css);
+@import url(../blocks/popup/__span-error/_type/popup__span-eror_type_active.css);
 
 @import url(../blocks/popup-profile/popup-profile.css);
 

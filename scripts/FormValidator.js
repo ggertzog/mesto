@@ -1,24 +1,24 @@
 export class FormValidator {
     #formElement; //Элемент формы
-    #listSelector; //список селекторов
+    #config; //список селекторов
     #inputList; //список инпутов
     #buttonElement //элемент кнопки
-    constructor(formElement, listSelector) {
+    constructor(formElement, config) {
         this.#formElement = formElement;
-        this.#listSelector = listSelector;
-        this.#inputList = Array.from(formElement.querySelectorAll(this.#listSelector.inputSelector));
-        this.#buttonElement = this.#formElement.querySelector(this.#listSelector.submitButtonSelector);
+        this.#config = config;
+        this.#inputList = Array.from(formElement.querySelectorAll(this.#config.inputSelector));
+        this.#buttonElement = this.#formElement.querySelector(this.#config.submitButtonSelector);
     }
     #showInputError(inputElement) {
         const errorElement = this.#formElement.querySelector(`#${inputElement.name}-error`);
-        inputElement.classList.add(this.#listSelector.inputErrorClass);
+        inputElement.classList.add(this.#config.inputErrorClass);
         errorElement.textContent = inputElement.validationMessage;
-        errorElement.style.opacity = '1';
+        errorElement.classList.add(this.#config.errorClass);
     }
     #hideInputError(inputElement) {
         const errorElement = this.#formElement.querySelector(`#${inputElement.name}-error`);
-        inputElement.classList.remove(this.#listSelector.inputErrorClass);
-        errorElement.style.opacity = '0';
+        inputElement.classList.remove(this.#config.inputErrorClass);
+        errorElement.classList.remove(this.#config.errorClass);
         errorElement.textContent = "";
     }
     checkInputValidity(inputElement) {
@@ -29,11 +29,11 @@ export class FormValidator {
         }
     }
     #disableButton() {
-        this.#buttonElement.classList.add(this.#listSelector.inactiveButtonClass);
-        this.#buttonElement.disabled = "disabled";
+        this.#buttonElement.classList.add(this.#config.inactiveButtonClass);
+        this.#buttonElement.disabled = true;
     }
     #enableButton() {
-        this.#buttonElement.classList.remove(this.#listSelector.inactiveButtonClass);
+        this.#buttonElement.classList.remove(this.#config.inactiveButtonClass);
         this.#buttonElement.disabled = false;
     }
     #hasInvalidInput() {
@@ -43,9 +43,9 @@ export class FormValidator {
     }
     toggleButtonState() {
         if (this.#hasInvalidInput()) {
-            this.#disableButton(this.#buttonElement, this.#listSelector);
+            this.#disableButton();
         } else {
-            this.#enableButton(this.#buttonElement, this.#listSelector);
+            this.#enableButton();
         }
     }
     setEventListeners() {

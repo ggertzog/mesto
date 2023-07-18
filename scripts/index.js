@@ -1,17 +1,9 @@
 //импорт js файлов
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-//добавил обьект для работы валидации
-const options = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_type_invalid',
-  inputErrorClass: 'popup__input_type_error',
-}
+import { options, initialCards } from "./constants.js";
+
 //Переменные первого попапа
-const popupCard = document.querySelector('.popup-create');
-const popupFormCard = popupCard.querySelector('.popup__form');
 const popupProfile = document.querySelector('.popup-profile');
 const popupFormProfile = popupProfile.querySelector('.popup__form');
 const popupButtonOpen = document.querySelector('.profile__edit-button');
@@ -25,43 +17,13 @@ const popups = document.querySelectorAll('.popup');
 
 //Переменные второго поп-апа
 const popupCreate = document.querySelector('.popup-create');
+const popupFormCreate = popupCreate.querySelector('.popup__form');
 const popupCreateButton = document.querySelector('.profile__add-button');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 
-//Переменные и массив для секции elements
-//здесь создал переменную относящуюся к секции
-const elementsSection = document.querySelector('.elements');
-//обратился к шаблону темплейт
-//обьявил переменную формы
-const popupFormCreate = popupCreate.querySelector('.popup__form');
-//обьявил массив
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ]; 
+//создал переменную секции elements
+const elementsSection = document.querySelector('.elements'); 
 
 //Переменные третьего поп-апа
 const popupImage = document.querySelector('.popup-image');
@@ -69,7 +31,7 @@ const popupElementImage = document.querySelector('.popup-image__element');
 const popupSubtitle = document.querySelector('.popup-image__subtitle');
 
 //Создал экземпляры класса FormValidator для каждой формы
-const cardValidator = new FormValidator(popupFormCard, options);
+const cardValidator = new FormValidator(popupFormCreate, options);
 const profileValidator = new FormValidator(popupFormProfile, options);
 
 //универсальная функция для открытия поп-апов
@@ -108,20 +70,18 @@ popupCloseButtons.forEach((button) => {
 });
 
 //функция отправки формы и присвоения текстовых значений поп-апа профиля
-function savePopupForm (evt) {
+function savePopupProfileForm (evt) {
   evt.preventDefault();
-  userName.textContent = nameInput.value
-  userAbout.textContent = jobInput.value
-  const popup = evt.target.closest('.popup');
-  closePopup(popup);
+  userName.textContent = nameInput.value;
+  userAbout.textContent = jobInput.value;
+  closePopup(popupProfile);
 }
 
 //Функция обработчик добавления новой карточки
 popupFormCreate.addEventListener('submit', function (evt){
-  const popup = evt.target.closest('.popup');
   evt.preventDefault();
   renderCard(titleInput.value, linkInput.value, elementsSection, 'prepend');
-  closePopup(popup);
+  closePopup(popupCreate);
   evt.target.reset ();
 });
 
@@ -135,11 +95,18 @@ function handleClickLike(evt) {
   evt.target.classList.toggle('elements__button_active');
 }
 
+function handleClickImage(evt) {
+    const cardName = evt.target.closest('.elements__card').querySelector('.elements__title').textContent;
+    const cardLink = evt.target.getAttribute('src');
+    renderPopupImage(cardName, cardLink);
+    openPopup(popupImage);
+}
+
 //Функция для отдельного рендеринга карточек
 function renderCard(name, link, pattern, position = 'append') {
   //создал экземпляр класса card
   const cardElement = new Card(
-    { name, link, handleClickDelete, handleClickLike },
+    { name, link, handleClickDelete, handleClickLike, handleClickImage },
     '#elements__template'
     ).createCard();
   switch (position) {
@@ -166,16 +133,6 @@ function renderPopupImage(name, link) {
   popupElementImage.setAttribute('alt', name);
 }
 
-//Слушатель тертьего поп-апа и события при нажатии на картинку и присвоения значения картинки и подписи
-elementsSection.addEventListener('click', function(evt){
-  if(evt.target.classList.contains('elements__image')){
-  const cardName = evt.target.closest('.elements__card').querySelector('.elements__title').textContent;
-  const cardLink = evt.target.getAttribute('src');
-  renderPopupImage(cardName, cardLink);
-  openPopup(popupImage);
-  }
-});
-
 //слушатель поп-апа профиля
 popupButtonOpen.addEventListener('click', () => {
   openPopup(popupProfile);
@@ -185,14 +142,14 @@ popupButtonOpen.addEventListener('click', () => {
 
 //слушатель поп-апа добавления
 popupCreateButton.addEventListener('click', () => {
-  popupFormCard.reset();
+  popupFormCreate.reset();
   cardValidator.resetValid();
   openPopup(popupCreate);
 });
 
 
 //слушатель отправки формы на сервер поп-апа профиля
-popupFormProfile.addEventListener('submit', savePopupForm);
+popupFormProfile.addEventListener('submit', savePopupProfileForm);
 //вызвал фалидацию форм
 profileValidator.enableValidation();
 cardValidator.enableValidation();
