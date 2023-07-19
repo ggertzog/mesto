@@ -95,9 +95,7 @@ function handleClickLike(evt) {
   evt.target.classList.toggle('elements__button_active');
 }
 
-function handleClickImage(evt) {
-    const cardName = evt.target.closest('.elements__card').querySelector('.elements__title').textContent;
-    const cardLink = evt.target.getAttribute('src');
+function handleClickImage(cardName, cardLink) {
     renderPopupImage(cardName, cardLink);
     openPopup(popupImage);
 }
