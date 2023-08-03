@@ -1,5 +1,5 @@
 //обьект с селекторами классов
-const options = {
+export const options = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
@@ -8,7 +8,7 @@ const options = {
     errorClass: 'popup__span-error_type_active'
 }
 //массив карточек
-const initialCards = [
+export const initialCards = [
     {
       name: 'Архыз',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -35,4 +35,20 @@ const initialCards = [
     }
 ]; 
 
-export {options, initialCards};
+const content = document.querySelector('.content');
+//Переменные первого попапа
+export const popupProfile = document.querySelector('.popup-profile');
+export const popupFormProfile = popupProfile.querySelector('.popup__form');
+export const popupProfileOpenButton = content.querySelector('.profile__edit-button');
+export const popupProfileCloseButton = popupProfile.querySelector('.popup__button-close');
+export const nameInput = popupProfile.querySelector('.popup__input_type_name');
+export const jobInput = popupProfile.querySelector('.popup__input_type_about');
+
+//Переменные второго поп-апа
+export const popupCreate = document.querySelector('.popup-create');
+export const popupFormCreate = popupCreate.querySelector('.popup__form');
+export const popupCreateCloseButton = popupCreate.querySelector('.popup__button-close');
+export const popupCreateOpenButton = document.querySelector('.profile__add-button');
+
+//создал переменную секции elements
+export const containerSelector = '.elements'; 

@@ -19,8 +19,8 @@
 .elements__button_active {
     opacity: 100%;
     background: url(../../../images/like-black.svg) no-repeat center;
-    width: 18px;
-    height: 19px;
+    width: 22px;
+    height: 22px;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
