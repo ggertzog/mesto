@@ -3,9 +3,7 @@ import {
   options,
   jobInput, 
   nameInput, 
-  popupProfileCloseButton, 
   popupProfileOpenButton, 
-  popupCreateCloseButton, 
   popupCreateOpenButton, 
   containerSelector,
   popupFormProfile,
@@ -57,24 +55,16 @@ function submitProfileForm(userData) {
   userInfo.setUserInfo(userData);
 };
 
-function handleProfileOpen() {
-  const userDescription = userInfo.getUserInfo();
-  nameInput.value = userDescription.name;
-  jobInput.value = userDescription.about;
-  profileValidator.resetValid();
-  popupProfile.open();
-}
-
 // экземпляр класса card для создания карточки
-const generateCard = (item) => {
+const generateCard = (data) => {
+  const newData = {title: data.title, link: data.link};
   const newCard = new Card({
-    data: item, 
+    data: newData, 
     handleClickImage: (name, link) => {
       popupImage.open(name, link);
     },
   }, '#elements__template');
-  const cardElement = newCard.createCard();
-  return cardElement
+  return newCard.createCard();
 }
 
 // экземпляр класса section для рендера массива
@@ -87,20 +77,22 @@ const cardList = new Section({
   }
 }, containerSelector
 );
+
+//метод рендера на экземпляр класса section
 cardList.renderItems();
 
-// слушатели событий
+function handleProfileOpen() {
+  const userDescription = userInfo.getUserInfo();
+  nameInput.value = userDescription.name;
+  jobInput.value = userDescription.about;
+  profileValidator.resetValid();
+  popupProfile.open();
+}
+
+//слушатели событий попапа создания карточек
 popupCreateOpenButton.addEventListener('click', () => {
   cardValidator.resetValid();
   popupCreate.open();
 });
-
-popupCreateCloseButton.addEventListener('click', () => {
-  popupCreate.close();
-});
-
+//слушатель событий для попапа профиля
 popupProfileOpenButton.addEventListener('click', handleProfileOpen);
-
-popupProfileCloseButton.addEventListener('click', () => {
-  popupProfile.close();
-});

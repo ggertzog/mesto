@@ -3,23 +3,20 @@ export default class Card {
     
     constructor({data, handleClickImage}, templateSelector) {
         this._data = data;
-        this._name = data.name;
-        this._link = data.link;
         this._handleClickImage = handleClickImage;
         this._templateSelector = templateSelector;
+        this._elementCard = this._getTemplate();
+        this._elementImage = this._elementCard.querySelector('.elements__image');
+        this._elementTitle = this._elementCard.querySelector('.elements__title');
+        this._buttonCardDelete = this._elementCard.querySelector('.elements__button-del');
+        this._buttonCardLike = this._elementCard.querySelector('.elements__button');
     }
     
     //матод создания карточки
     createCard() {
-        this._elementCard = this._getTemplate();
-        const elementTitle = this._elementCard.querySelector('.elements__title');
-        const elementLink = this._elementCard.querySelector('.elements__image');
-        this._buttonCardDelete = this._elementCard.querySelector('.elements__button-del');
-        this._buttonCardLike = this._elementCard.querySelector('.elements__button');
-        this._cardImage = this._elementCard.querySelector('.elements__image');
-        elementTitle.textContent = this._name;
-        elementLink.src = this._link;
-        elementLink.alt = this._name;
+        this._elementTitle.textContent = this._data.title;
+        this._elementImage.src = this._data.link;
+        this._elementImage.alt = this._data.title;
         this._setEventListeners();
         //получаем готовую карточку на выходе
         return this._elementCard;
@@ -39,8 +36,8 @@ export default class Card {
         this._buttonCardDelete.addEventListener('click', () => {
             this._elementCard.remove();
         });
-        this._cardImage.addEventListener('click', () => {
-            this._handleClickImage(this._name, this._link);
+        this._elementImage.addEventListener('click', () => {
+            this._handleClickImage(this._data.title, this._data.link);
         });
     }
 }
