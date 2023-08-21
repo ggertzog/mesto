@@ -12,15 +12,17 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/image.jpg')%>" alt="аватарка">
+            <button class="profile__avatar-button" type="button">
+                <img class="profile__avatar" src="#" alt="аватарка">
+            </button>
             <div class="profile__info">
                 <div class="profile__user-container">
-                    <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+                    <h1 class="profile__user-name"></h1>
                     <button class="profile__edit-button" type="button">
                         <img class="profile__edit-image" alt="ярлык" src="<%=require('./images/button.svg')%>">
                     </button>
                 </div>
-                <p class="profile__user-description">Исследователь океана</p>
+                <p class="profile__user-description"></p>
             </div>
             <button class="profile__add-button" type="button">
                 <img class="profile__add-image" alt="ярлык" src="<%=require('./images/button-plus.svg')%>">
@@ -35,9 +37,12 @@
                     </button>
                     <div class="elements__description">
                         <h2 class="elements__title"></h2>
-                        <button class="elements__button" type="button">
-                            <img src="<%=require('./images/like.svg')%>" alt="нравится" class="elements__button-image">
-                        </button>
+                        <div class="elements__like-container">
+                            <button class="elements__button-like" type="button">
+                                <img src="<%=require('./images/like.svg')%>" alt="нравится" class="elements__button-like-image">
+                            </button>
+                            <h3 class="elements__likes-sum">0</h3>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -86,6 +91,30 @@
             </div>
             <figcaption class="popup-image__subtitle"></figcaption>
         </figure>  
+    </div>
+    <div class="popup popup-confirm">
+        <div class="popup-confirm__container">
+            <form class="popup-confirm__form" name="popup__form-delete">
+                <h2 class="popup-confirm__text">Вы уверены?</h2>
+                <button class="popup__button" type="submit">Да</button>
+                <button class="popup__button-close" type="button">
+                    <img src="<%=require('./images/Close-Icon.svg')%>" alt="закрыть" class="popup__button-image">
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup-avatar">
+        <div class="popup__container">
+            <form class="popup__form" name="popup__form-avatar">
+                <h2 class="popup__text">Обновить аватар</h2>
+                <input name="avatar" type="url" class="popup__input" placeholder="Ссылка на изображение" required>
+                <span id="avatar-error" class="popup__span-error"></span>
+                <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
+                <button class="popup__button-close" type="button">
+                    <img src="<%=require('./images/Close-Icon.svg')%>" alt="закрыть" class="popup__button-image">
+                </button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
