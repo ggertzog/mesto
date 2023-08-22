@@ -47,7 +47,7 @@ const popupImage = new PopupWithImage('.popup-image');
 const popupProfile = new PopupWithForm('.popup-profile', submitProfileForm);
 
 //экземпляр формы подтверждения удаления
-const popupConfirm = new PopupWithConfirm('.popup-confirm', handleDeleteCard);
+const popupConfirm = new PopupWithConfirm('.popup-confirm', handleItemCard);
 
 //экземпляр формы аватара
 const popupAvatar = new PopupWithForm('.popup-avatar', submitAvatarForm);
@@ -78,25 +78,6 @@ const cardList = new Section({
 }, containerSelector
 );
 
-//вызвал фалидацию форм
-profileValidator.enableValidation();
-cardValidator.enableValidation();
-avatarValidator.enableValidation();
-
-// вызвал метод setEventListeners для всех попапов
-popupImage.setEventListeners();
-popupProfile.setEventListeners();
-popupCreate.setEventListeners();
-popupConfirm.setEventListeners();
-popupAvatar.setEventListeners();
-
-//получил данные с сервера и присвоил профилю
-api.getUserInfo()
-  .then((res) => {
-    userInfo.setUserInfo(res)
-  })
-  .catch((err) => {console.log(err)})
-
 //функция сабмита попапа создания карточки
 function submitCreateForm(dataFromServer) {
   popupCreate.loading(true);
@@ -105,6 +86,7 @@ function submitCreateForm(dataFromServer) {
     .then((res) => {
       const renderedCard = generateCard(res);
       cardList.addItem(renderedCard);
+      popupCreate.close();
   })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -113,11 +95,14 @@ function submitCreateForm(dataFromServer) {
 }
 
 //получаем данные с сервера переназначаем переменную userId и рендерим полученный массив карточек
+//получили данные профиля и присвоили значения
 api.getAllInfo()
   .then(([userData, initialCards]) => {
     userId = userData._id;
     cardList.renderItems(initialCards.reverse());
+    userInfo.setUserInfo(userData);
   })
+  .catch(err => console.log(err))
 
 //функция сабмита попапа профиля
 function submitProfileForm(userData) {
@@ -125,7 +110,8 @@ function submitProfileForm(userData) {
   //передаю новые данные на сервер методом патч при событии сабмита
   api.editUserProfile(userData)
   .then((res) => {
-    userInfo.setUserInfo(res)
+    userInfo.setUserInfo(res);
+    popupProfile.close();
   })
   .catch((err) => {console.log(err)})
   .finally(() => {
@@ -134,7 +120,7 @@ function submitProfileForm(userData) {
 };
 
 // функция сабмита попапа подтверждения
-function handleDeleteCard(dataCard) {
+function handleItemCard(dataCard) {
   api.deleteCard(dataCard.getId())
     .then(() => {
       dataCard.deleteCard();
@@ -168,14 +154,9 @@ function handleLikePost(exemplar) {
 
 //получаем данные с сервера при открытии попапа профиля и присваиваем значения инпутам
 function handleProfileOpen() {
-  api.getUserInfo()
-    .then((res) => {
-      const userDescription = userInfo.getUserInfo(res);
-      nameInput.value = userDescription.name;
-      jobInput.value = userDescription.about;
-  })
-    .catch(res => console.log(res));
-
+  const userDescription = userInfo.getUserInfo();
+  nameInput.value = userDescription.name;
+  jobInput.value = userDescription.about;
   profileValidator.resetValid();
   popupProfile.open();
 }
@@ -194,3 +175,15 @@ popupAvatarOpenButton.addEventListener('click', () => {
   popupAvatar.open();
   avatarValidator.resetValid();
 })
+
+//вызвал фалидацию форм
+profileValidator.enableValidation();
+cardValidator.enableValidation();
+avatarValidator.enableValidation();
+
+// вызвал метод setEventListeners для всех попапов
+popupImage.setEventListeners();
+popupProfile.setEventListeners();
+popupCreate.setEventListeners();
+popupConfirm.setEventListeners();
+popupAvatar.setEventListeners();

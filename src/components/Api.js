@@ -4,7 +4,7 @@ export class Api {
         this._headers = config.headers;
     }
 
-    #Responce(res) {
+    #onResponse(res) {
         return res.ok ? res.json() : res.json().then(errData => Promise.reject(errData))
     }
 
@@ -16,14 +16,14 @@ export class Api {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
-            .then(this.#Responce)
+            .then(this.#onResponse)
     }
 
     getInitialCards() {
         return fetch(`${this._url}/cards`, {
             headers: this._headers
         })
-            .then(this.#Responce)
+            .then(this.#onResponse)
     }
 
     editUserProfile(data) {
@@ -35,7 +35,7 @@ export class Api {
                 about:  data.about
             }),
         })
-            .then(this.#Responce)
+            .then(this.#onResponse)
     }
 
     postNewCard(data) {
@@ -47,7 +47,7 @@ export class Api {
                 link: data.link
             }),
         })
-            .then(this.#Responce)
+            .then(this.#onResponse)
     }
 
     deleteCard(cardId) {
@@ -55,7 +55,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers
         })
-        .then(this.#Responce)
+        .then(this.#onResponse)
     }
 
     changeLike(cardId, isLiked) {
@@ -63,7 +63,7 @@ export class Api {
             method: isLiked ? 'DELETE' : 'PUT',
             headers: this._headers
         })
-        .then(this.#Responce)
+        .then(this.#onResponse)
     }
 
     changeAvatar(avatar) {
@@ -72,6 +72,6 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(avatar)
         })
-        .then(this.#Responce)
+        .then(this.#onResponse)
     }
 }

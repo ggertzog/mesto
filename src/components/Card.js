@@ -17,11 +17,13 @@ export default class Card {
         this._buttonCardLike = this._elementCard.querySelector('.elements__button-like');
         this._likesSum = this._elementCard.querySelector('.elements__likes-sum');
     }
+    
     //возвращаем поле id полученного обьекта
     getId() {
         return this._data._id;
     }
-    //сверяем поле id обьекта лайкз карточки с нашим id , получаем правду или пиздеж
+
+    //сверяем поле id обьекта лайкз карточки с нашим id , получаем правду или ложь
     isLiked() {
         return this._data.likes.some((item) => {
             return item._id === this._userId;
