@@ -156,7 +156,7 @@ function handleLikePost(exemplar) {
 function handleProfileOpen() {
   const userDescription = userInfo.getUserInfo();
   nameInput.value = userDescription.name;
-  jobInput.value = userDescription.about;
+  jobInput.value = userDescription.about;т
   profileValidator.resetValid();
   popupProfile.open();
 }
