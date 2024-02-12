@@ -1,1 +1,1 @@
-<img src="./src/images/mestobanner.png" alt="Описание работы">
+<img src="./src/images/mestowp.png" alt="Описание работы">
